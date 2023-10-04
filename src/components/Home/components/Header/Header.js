@@ -10,27 +10,18 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState("");
 
-  const openModal = (modalType) => {
-    setShowModal(modalType);
-    setMenuOpen(false);
-  };
-
-  const closeModal = () => {
-    setShowModal("");
-  };
-
   return (
     <header className="sticky top-0 z-50 bg-white shadow-lg">
       <div className="container flex items-center justify-between px-6 py-2 mx-auto md:px-10 lg:px-16">
         <div className="flex items-center space-x-2">
           <Link href="/">
             <p className="text-xl font-semibold text-blue-600 transition duration-300 ease-in-out hover:text-blue-500">
-              SeniorSupporters
+              WeCare
             </p>
           </Link>
         </div>
         <div className="hidden space-x-3 md:flex">
-          <Link href="/post-a-task">
+          <Link href="/post-task">
             <p className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500">
               Post a Task
             </p>
@@ -40,7 +31,7 @@ const Header = () => {
               Categories
             </p>
           </Link>
-          <Link href="/browse-tasks">
+          <Link href="/tasks">
             <p className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500">
               Browse Tasks
             </p>
@@ -52,18 +43,16 @@ const Header = () => {
           </Link>
         </div>
         <div className="hidden space-x-2 md:flex">
-          <button
-            onClick={() => openModal("LOG_IN")}
-            className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500"
-          >
-            Log In
-          </button>
-          <button
-            onClick={() => openModal("SIGN_UP")}
-            className="px-4 py-2 text-white transition duration-300 ease-in-out bg-blue-500 rounded-full hover:bg-blue-600"
-          >
-            Sign Up
-          </button>
+          <Link href="/login">
+            <p className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500">
+              Log In
+            </p>
+          </Link>
+          <Link href="/signup">
+            <p className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500">
+              Sign Up
+            </p>
+          </Link>
         </div>
         <div className="flex items-center md:hidden">
           <button
@@ -89,7 +78,7 @@ const Header = () => {
               <FontAwesomeIcon icon={faTimes} className="text-2xl" />
             </button>
             <div className="flex flex-col items-center mt-8 space-y-6">
-              <Link href="/post-a-task">
+              <Link href="/post-task">
                 <p className="block mb-2 text-black cursor-pointer hover:text-gray-400">
                   Post a Task
                 </p>
@@ -99,7 +88,7 @@ const Header = () => {
                   Categories
                 </p>
               </Link>
-              <Link href="/browse-tasks">
+              <Link href="/tasks">
                 <p className="block mb-2 text-black cursor-pointer hover:text-gray-400">
                   Browse Tasks
                 </p>
@@ -125,9 +114,6 @@ const Header = () => {
           </div>
         </div>
       )}
-
-      {showModal === "SIGN_UP" && <SignUpModal onClose={closeModal} />}
-      {showModal === "LOG_IN" && <LogInModal onClose={closeModal} />}
     </header>
   );
 };
