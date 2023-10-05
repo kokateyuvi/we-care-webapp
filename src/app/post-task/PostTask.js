@@ -1,28 +1,52 @@
 "use client";
-import React, { useState } from "react";
+
+import { addTask } from "@/services/taskService";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import toast, { Toaster } from "react-hot-toast";
 
 const TaskDetails = ({ onNext }) => {
-  const [title, setTitle] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [location, setLocation] = useState("");
-  const [budget, setBudget] = useState("");
+  const [task, setTask] = useState({
+    title: "",
+    selectedDate: null,
+    location: "",
+    budget: "",
+  });
 
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    setTask({ ...task, selectedDate: date });
   };
 
-  const handleSubmit = () => {
-    // Handle form submission logic here
-    const taskDetails = {
-      title,
-      selectedDate,
-      location,
-      budget,
-    };
-    console.log("Task Details:", taskDetails);
-    onNext(taskDetails);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(task);
+      // Call the addTask function to save the task
+      const result = await addTask(task);
+
+      // Display success message
+      toast.success("Task Added successfully");
+
+      // Log the result to the console (you can remove this line if not needed)
+      console.log(result);
+
+      // Clear the form after successful submission
+      setTask({
+        title: "",
+        selectedDate: null,
+        location: "",
+        budget: "",
+      });
+
+      // Invoke onNext function to proceed to the next step (if needed)
+      // Assuming onNext is a function to handle the next step
+    } catch (error) {
+      console.error("Error creating task:", error);
+      // Handle network errors or other exceptions
+      // Display an error message (optional)
+      toast.error("Failed to add task");
+    }
   };
 
   return (
@@ -36,8 +60,8 @@ const TaskDetails = ({ onNext }) => {
           type="text"
           className="w-full p-2 mt-1 border rounded"
           placeholder="E.g. Help move my sofa"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={task.title}
+          onChange={(e) => setTask({ ...task, title: e.target.value })}
         />
       </div>
       <div className="mb-4">
@@ -46,7 +70,7 @@ const TaskDetails = ({ onNext }) => {
         </label>
         <DatePicker
           className="w-full p-2 border rounded"
-          selected={selectedDate}
+          selected={task.selectedDate}
           onChange={handleDateChange}
           placeholderText="Select a date"
         />
@@ -59,8 +83,8 @@ const TaskDetails = ({ onNext }) => {
           type="text"
           className="w-full p-2 mt-1 border rounded"
           placeholder="Enter your location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          value={task.location}
+          onChange={(e) => setTask({ ...task, location: e.target.value })}
         />
       </div>
       <div className="mb-4">
@@ -71,8 +95,8 @@ const TaskDetails = ({ onNext }) => {
           type="text"
           className="w-full p-2 mt-1 border rounded"
           placeholder="Enter your budget"
-          value={budget}
-          onChange={(e) => setBudget(e.target.value)}
+          value={task.budget}
+          onChange={(e) => setTask({ ...task, budget: e.target.value })}
         />
       </div>
       <button
