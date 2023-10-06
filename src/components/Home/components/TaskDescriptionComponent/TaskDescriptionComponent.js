@@ -23,7 +23,7 @@ const TaskDescriptionComponent = () => {
         />
       </div>
       <p className="mb-8 text-lg">Post your task for free</p>
-      <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+      <button className="px-4 py-3 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
         Post Your Task
       </button>
     </div>
