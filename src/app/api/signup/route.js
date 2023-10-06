@@ -1,15 +1,12 @@
 import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 import connect from "../../../../db";
-
+import bcrypt from "bcryptjs";
 export async function POST(request) {
-  connect();
-  const { name, email, password } = await request.json();
   try {
-    // Parse request body to extract form data
-
-    // Validate form data (you can use a validation library like Joi or Express Validator)
-
+    connect();
+    const { name, email, password } = await request.json();
+    const hashedPassword = await bcrypt.hash(password, 10);
     // Check if the email is already registered
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -28,7 +25,7 @@ export async function POST(request) {
     const newUser = new User({
       name,
       email,
-      password,
+      password: hashedPassword,
     });
 
     // Save the new user to the database

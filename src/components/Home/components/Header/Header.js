@@ -3,12 +3,14 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import SignUpModal from "./components/SignUpModal/SignUpModal";
-import LogInModal from "./components/LogInModal/LogInModal";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showModal, setShowModal] = useState("");
+
+  const handleMenuItemClick = () => {
+    // Close the menu when a menu item is clicked
+    setMenuOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-lg">
@@ -22,34 +24,52 @@ const Header = () => {
         </div>
         <div className="hidden space-x-3 md:flex">
           <Link href="/post-task">
-            <p className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500">
+            <p
+              onClick={handleMenuItemClick}
+              className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500 cursor-pointer"
+            >
               Post a Task
             </p>
           </Link>
           <Link href="/categories">
-            <p className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500">
+            <p
+              onClick={handleMenuItemClick}
+              className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500 cursor-pointer"
+            >
               Categories
             </p>
           </Link>
           <Link href="/tasks">
-            <p className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500">
+            <p
+              onClick={handleMenuItemClick}
+              className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500 cursor-pointer"
+            >
               Browse Tasks
             </p>
           </Link>
           <Link href="/how-it-works">
-            <p className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500">
+            <p
+              onClick={handleMenuItemClick}
+              className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500 cursor-pointer"
+            >
               How it Works
             </p>
           </Link>
         </div>
         <div className="hidden space-x-2 md:flex">
           <Link href="/login">
-            <p className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500">
+            <p
+              onClick={handleMenuItemClick}
+              className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500 cursor-pointer"
+            >
               Log In
             </p>
           </Link>
           <Link href="/signup">
-            <p className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500">
+            <p
+              onClick={handleMenuItemClick}
+              className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500 cursor-pointer"
+            >
               Sign Up
             </p>
           </Link>
@@ -79,37 +99,53 @@ const Header = () => {
             </button>
             <div className="flex flex-col items-center mt-8 space-y-6">
               <Link href="/post-task">
-                <p className="block mb-2 text-black cursor-pointer hover:text-gray-400">
+                <p
+                  onClick={handleMenuItemClick}
+                  className="block mb-2 text-black cursor-pointer hover:text-gray-400"
+                >
                   Post a Task
                 </p>
               </Link>
               <Link href="/categories">
-                <p className="block mb-2 text-black cursor-pointer hover:text-gray-400">
+                <p
+                  onClick={handleMenuItemClick}
+                  className="block mb-2 text-black cursor-pointer hover:text-gray-400"
+                >
                   Categories
                 </p>
               </Link>
               <Link href="/tasks">
-                <p className="block mb-2 text-black cursor-pointer hover:text-gray-400">
+                <p
+                  onClick={handleMenuItemClick}
+                  className="block mb-2 text-black cursor-pointer hover:text-gray-400"
+                >
                   Browse Tasks
                 </p>
               </Link>
               <Link href="/how-it-works">
-                <p className="block mb-2 text-black cursor-pointer hover:text-gray-400">
+                <p
+                  onClick={handleMenuItemClick}
+                  className="block mb-2 text-black cursor-pointer hover:text-gray-400"
+                >
                   How it Works
                 </p>
               </Link>
-              <button
-                onClick={() => openModal("SIGN_UP")}
-                className="block mb-2 text-black cursor-pointer hover:text-gray-400"
-              >
-                Sign Up
-              </button>
-              <button
-                onClick={() => openModal("LOG_IN")}
-                className="block text-black cursor-pointer hover:text-gray-400"
-              >
-                Log In
-              </button>
+              <Link href="/login">
+                <button
+                  onClick={handleMenuItemClick}
+                  className="block text-black cursor-pointer hover:text-gray-400"
+                >
+                  Log In
+                </button>
+              </Link>
+              <Link href="/signup">
+                <button
+                  onClick={handleMenuItemClick}
+                  className="block text-black cursor-pointer hover:text-gray-400"
+                >
+                  Sign Up
+                </button>
+              </Link>
             </div>
           </div>
         </div>

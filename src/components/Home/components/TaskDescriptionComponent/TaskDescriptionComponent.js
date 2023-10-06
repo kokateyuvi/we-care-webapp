@@ -17,8 +17,8 @@ const TaskDescriptionComponent = () => {
         <Image
           src={taskImage}
           alt="Task Description"
-          layout="fill"
-          objectFit="cover"
+          height={500}
+          width={500}
           className="rounded-lg"
         />
       </div>

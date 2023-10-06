@@ -15,12 +15,13 @@ const TaskComponent = () => {
         className="relative mb-8 rounded-lg shadow-lg"
         style={{ maxWidth: "400px", margin: "0 auto" }}
       >
-        <div style={{ paddingTop: "75%" /* 4:3 Aspect Ratio */ }}>
+        <div>
           <Image
             src={img}
             alt="College student helping an elderly person"
-            layout="fill"
-            objectFit="cover"
+            priority
+            width={500}
+            height={500}
             className="rounded-lg"
           />
         </div>

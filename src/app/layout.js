@@ -3,6 +3,8 @@ import "./globals.css";
 
 import { Roboto } from "next/font/google";
 import Header from "@/components/Home/components/Header/Header";
+import { AuthProvider } from "./Providers";
+import { Toaster } from "react-hot-toast";
 
 const roboto = Roboto({
   weight: ["100", "300", "500", "400", "700", "900"],
@@ -20,7 +22,12 @@ export default function RootLayout({ children }) {
       <body className={roboto.className}>
         {" "}
         <Header />
-        <div className="min-h-screen py-5">{children}</div>
+        <div className="min-h-screen py-5">
+          <AuthProvider>
+            {children}
+            <Toaster />
+          </AuthProvider>
+        </div>
       </body>
     </html>
   );

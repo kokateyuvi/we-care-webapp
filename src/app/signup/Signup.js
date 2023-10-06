@@ -1,5 +1,6 @@
 "use client";
 import { addUser } from "@/services/userService";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -9,7 +10,7 @@ const SignUp = () => {
     email: "",
     password: "",
   });
-
+  const router = useRouter();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -24,7 +25,6 @@ const SignUp = () => {
       console.log(formData);
       const response = await addUser(formData);
       console.log(response);
-      toast.success("jii");
       toast.success(response.message);
       setFormData({
         name: "",
@@ -33,7 +33,10 @@ const SignUp = () => {
 
         // Redirect or perform other actions after successful registration
       });
+
+      router.push("/login");
     } catch (error) {
+      toast.error("Error resistering user");
       console.error("Error registering user:", error);
       // Handle network errors or other exceptions
     }
