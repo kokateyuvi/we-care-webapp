@@ -11,8 +11,8 @@ const TaskDescriptionComponent = () => {
         to attract the best Taskers.
       </p>
       <div
-        className="mx-auto mb-8 rounded-lg shadow-lg"
-        style={{ width: "400px", height: "300px", position: "relative" }}
+        className="relative mb-8 rounded-lg shadow-lg"
+        style={{ maxWidth: "400px", margin: "0 auto" }}
       >
         <Image
           src={taskImage}
