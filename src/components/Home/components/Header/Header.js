@@ -26,7 +26,7 @@ const Header = () => {
           <Link href="/post-task">
             <p
               onClick={handleMenuItemClick}
-              className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500 cursor-pointer"
+              className="px-3 py-1 text-sm font-semibold text-white transition duration-300 ease-in-out bg-blue-600 rounded-full cursor-pointer hover:bg-blue-500"
             >
               Post a Task
             </p>
@@ -34,7 +34,7 @@ const Header = () => {
           <Link href="/categories">
             <p
               onClick={handleMenuItemClick}
-              className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500 cursor-pointer"
+              className="text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
             >
               Categories
             </p>
@@ -42,7 +42,7 @@ const Header = () => {
           <Link href="/tasks">
             <p
               onClick={handleMenuItemClick}
-              className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500 cursor-pointer"
+              className="text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
             >
               Browse Tasks
             </p>
@@ -50,7 +50,7 @@ const Header = () => {
           <Link href="/how-it-works">
             <p
               onClick={handleMenuItemClick}
-              className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500 cursor-pointer"
+              className="text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
             >
               How it Works
             </p>
@@ -60,7 +60,7 @@ const Header = () => {
           <Link href="/login">
             <p
               onClick={handleMenuItemClick}
-              className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500 cursor-pointer"
+              className="text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
             >
               Log In
             </p>
@@ -68,7 +68,7 @@ const Header = () => {
           <Link href="/signup">
             <p
               onClick={handleMenuItemClick}
-              className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500 cursor-pointer"
+              className="text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
             >
               Sign Up
             </p>
@@ -101,7 +101,7 @@ const Header = () => {
               <Link href="/post-task">
                 <p
                   onClick={handleMenuItemClick}
-                  className="block mb-2 text-black cursor-pointer hover:text-gray-400"
+                  className="block px-3 py-1 mb-2 text-white bg-blue-600 rounded-full cursor-pointer hover:bg-blue-500"
                 >
                   Post a Task
                 </p>

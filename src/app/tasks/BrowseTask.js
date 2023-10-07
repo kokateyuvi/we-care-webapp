@@ -91,41 +91,41 @@
 
 // export default BrowseTask;
 "use client";
-import React, { useState } from "react";
+// BrowseTask.js
+import React, { useState, useEffect } from "react";
 import TaskCard from "./components/TaskCard/TaskCard";
-
-const tasksData = [
-  {
-    id: 1,
-    title: "Math Tutoring",
-    description: "Help with algebra homework",
-    budget: 20,
-  },
-  {
-    id: 2,
-    title: "English Essay Review",
-    description: "Proofread my essay",
-    budget: 15,
-  },
-  // Add more tasks here
-];
+import { getAllTasks } from "@/services/taskService";
 
 const BrowseTask = () => {
+  const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const tasksData = await getAllTasks();
+        setTasks(tasksData);
+      } catch (error) {
+        // Handle error (e.g., show an error message)
+        console.error("Error fetching tasks:", error);
+      }
+    };
+
+    fetchData(); // Fetch tasks when the component mounts
+  }, []);
+
   return (
-    <div className="container p-8 mx-auto">
+    <div className="container px-4 mx-auto my-8">
       <h1 className="mb-6 text-4xl font-bold">Available Tasks</h1>
-      <div className="flex flex-wrap -mx-4">
-        {tasksData.map((task) => (
-          <div
-            key={task.id}
-            className="w-full px-4 mb-8 md:w-1/2 lg:w-1/3 xl:w-1/4"
-          >
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {tasks.map((task) => (
+          <div key={task._id} className="w-full">
             <TaskCard
               title={task.title}
               description={task.description}
               budget={task.budget}
+              location={task.location}
+              selectedDate={task.selectedDate}
               onClick={() => setSelectedTask(task)}
             />
           </div>
@@ -138,6 +138,8 @@ const BrowseTask = () => {
             title={selectedTask.title}
             description={selectedTask.description}
             budget={selectedTask.budget}
+            location={selectedTask.location}
+            selectedDate={selectedTask.selectedDate}
           />
         </div>
       )}
