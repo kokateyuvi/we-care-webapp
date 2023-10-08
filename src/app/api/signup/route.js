@@ -38,7 +38,8 @@ export async function POST(request) {
       },
       {
         status: 201,
-      }
+      },
+      console.log(newUser)
     );
   } catch (error) {
     console.error("Error registering user:", error);

@@ -1,10 +1,11 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-import connectDb from "@/libs/mongodb";
+
 import User from "@/models/userModel";
 import bcrypt from "bcryptjs"; // Import bcrypt for password hashing and comparison
+import connect from "../../../../../db";
 
-connectDb();
+connect();
 
 const authOptions = {
   providers: [
@@ -18,7 +19,7 @@ const authOptions = {
 
           // If user not found, return null
           if (!user) {
-            return null;
+            throw new Error("Invalid email or Password");
           }
 
           // Compare the provided password with the hashed password in the database using bcrypt.compare
@@ -29,7 +30,7 @@ const authOptions = {
 
           // If password doesn't match, return null
           if (!passwordMatch) {
-            return null;
+            throw new Error("Invalid email or password");
           }
 
           // If user is found and password matches, return the user object

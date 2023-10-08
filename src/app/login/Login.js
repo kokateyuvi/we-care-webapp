@@ -29,7 +29,7 @@ const Login = () => {
       });
 
       if (res.error) {
-        toast.error("Invalid credentials. Please try again.");
+        toast.error(error);
         return;
       }
 

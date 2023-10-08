@@ -3,12 +3,14 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { data: session } = useSession();
 
   const handleMenuItemClick = () => {
-    // Close the menu when a menu item is clicked
     setMenuOpen(false);
   };
 
@@ -23,56 +25,41 @@ const Header = () => {
           </Link>
         </div>
         <div className="hidden space-x-3 md:flex">
-          <Link href="/post-task">
-            <p
-              onClick={handleMenuItemClick}
-              className="px-3 py-1 text-sm font-semibold text-white transition duration-300 ease-in-out bg-blue-600 rounded-full cursor-pointer hover:bg-blue-500"
-            >
+          <div className="px-3 py-1 text-white bg-blue-700 rounded-full">
+            <Link href="/post-task" onClick={handleMenuItemClick}>
               Post a Task
-            </p>
-          </Link>
-          <Link href="/categories">
-            <p
-              onClick={handleMenuItemClick}
-              className="text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
-            >
-              Categories
-            </p>
-          </Link>
-          <Link href="/tasks">
-            <p
-              onClick={handleMenuItemClick}
-              className="text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
-            >
-              Browse Tasks
-            </p>
-          </Link>
-          <Link href="/how-it-works">
-            <p
-              onClick={handleMenuItemClick}
-              className="text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
-            >
-              How it Works
-            </p>
-          </Link>
+            </Link>
+          </div>
+          <NavItem href="/categories" onClick={handleMenuItemClick}>
+            Categories
+          </NavItem>
+          <NavItem href="/tasks" onClick={handleMenuItemClick}>
+            Browse Tasks
+          </NavItem>
+          <NavItem href="/how-it-works" onClick={handleMenuItemClick}>
+            How it Works
+          </NavItem>
         </div>
         <div className="hidden space-x-2 md:flex">
-          <Link href="/login">
-            <p
-              onClick={handleMenuItemClick}
-              className="text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
-            >
-              Log In
-            </p>
-          </Link>
-          <Link href="/signup">
-            <p
-              onClick={handleMenuItemClick}
-              className="text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
-            >
-              Sign Up
-            </p>
-          </Link>
+          {session ? (
+            <>
+              <NavItem href="/profile" onClick={handleMenuItemClick}>
+                Profile
+              </NavItem>
+              <NavItem href="/api/auth/signout" onClick={signOut}>
+                Logout
+              </NavItem>
+            </>
+          ) : (
+            <>
+              <NavItem href="/login" onClick={handleMenuItemClick}>
+                Log In
+              </NavItem>
+              <NavItem href="/signup" onClick={handleMenuItemClick}>
+                Sign Up
+              </NavItem>
+            </>
+          )}
         </div>
         <div className="flex items-center md:hidden">
           <button
@@ -98,54 +85,37 @@ const Header = () => {
               <FontAwesomeIcon icon={faTimes} className="text-2xl" />
             </button>
             <div className="flex flex-col items-center mt-8 space-y-6">
-              <Link href="/post-task">
-                <p
-                  onClick={handleMenuItemClick}
-                  className="block px-3 py-1 mb-2 text-white bg-blue-600 rounded-full cursor-pointer hover:bg-blue-500"
-                >
-                  Post a Task
-                </p>
-              </Link>
-              <Link href="/categories">
-                <p
-                  onClick={handleMenuItemClick}
-                  className="block mb-2 text-black cursor-pointer hover:text-gray-400"
-                >
-                  Categories
-                </p>
-              </Link>
-              <Link href="/tasks">
-                <p
-                  onClick={handleMenuItemClick}
-                  className="block mb-2 text-black cursor-pointer hover:text-gray-400"
-                >
-                  Browse Tasks
-                </p>
-              </Link>
-              <Link href="/how-it-works">
-                <p
-                  onClick={handleMenuItemClick}
-                  className="block mb-2 text-black cursor-pointer hover:text-gray-400"
-                >
-                  How it Works
-                </p>
-              </Link>
-              <Link href="/login">
-                <button
-                  onClick={handleMenuItemClick}
-                  className="block text-black cursor-pointer hover:text-gray-400"
-                >
-                  Log In
-                </button>
-              </Link>
-              <Link href="/signup">
-                <button
-                  onClick={handleMenuItemClick}
-                  className="block text-black cursor-pointer hover:text-gray-400"
-                >
-                  Sign Up
-                </button>
-              </Link>
+              <NavItem href="/post-task" onClick={handleMenuItemClick}>
+                Post a Task
+              </NavItem>
+              <NavItem href="/categories" onClick={handleMenuItemClick}>
+                Categories
+              </NavItem>
+              <NavItem href="/tasks" onClick={handleMenuItemClick}>
+                Browse Tasks
+              </NavItem>
+              <NavItem href="/how-it-works" onClick={handleMenuItemClick}>
+                How it Works
+              </NavItem>
+              {session ? (
+                <>
+                  <NavItem href="/profile" onClick={handleMenuItemClick}>
+                    Profile
+                  </NavItem>
+                  <NavItem href="/api/auth/signout" onClick={signOut}>
+                    Logout
+                  </NavItem>
+                </>
+              ) : (
+                <>
+                  <NavItem href="/login" onClick={handleMenuItemClick}>
+                    Log In
+                  </NavItem>
+                  <NavItem href="/signup" onClick={handleMenuItemClick}>
+                    Sign Up
+                  </NavItem>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -153,5 +123,16 @@ const Header = () => {
     </header>
   );
 };
+
+const NavItem = ({ href, onClick, children }) => (
+  <Link href={href}>
+    <p
+      onClick={onClick}
+      className="text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
+    >
+      {children}
+    </p>
+  </Link>
+);
 
 export default Header;

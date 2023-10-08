@@ -11,6 +11,7 @@ const SignUp = () => {
     password: "",
   });
   const router = useRouter();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -22,23 +23,21 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(formData);
-      const response = await addUser(formData);
-      console.log(response);
-      toast.success(response.message);
-      setFormData({
-        name: "",
-        email: "",
-        password: "",
-
-        // Redirect or perform other actions after successful registration
-      });
-
-      router.push("/login");
+      const response = await addUser(formData); // Assuming registerUser handles API call and returns response
+      if (response.status) {
+        toast.success(response.message);
+        setFormData({
+          name: "",
+          email: "",
+          password: "",
+        });
+        router.push("/login"); // Redirect to login page after successful registration
+      } else {
+        toast.error(response.message);
+      }
     } catch (error) {
-      toast.error("Error resistering user");
+      toast.error("Error registering user");
       console.error("Error registering user:", error);
-      // Handle network errors or other exceptions
     }
   };
 

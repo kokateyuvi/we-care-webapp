@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import "./globals.css";
 
 import { Roboto } from "next/font/google";
@@ -21,13 +20,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={roboto.className}>
         {" "}
-        <Header />
-        <div className="min-h-screen py-5">
-          <AuthProvider>
+        <AuthProvider>
+          <Header />
+          <div className="min-h-screen py-5">
             {children}
             <Toaster />
-          </AuthProvider>
-        </div>
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );
