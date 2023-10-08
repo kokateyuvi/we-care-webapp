@@ -1,78 +1,40 @@
+// Import necessary libraries and components
+"use client";
 import React from "react";
-import profilePic from "../../components/Home/components/TaskComponent/elements/img1.jpg";
-import coverPic from "../../components/Home/components/TaskComponent/elements/img1.jpg";
-import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 const Profile = () => {
+  // Get user session data
+  const { data: session } = useSession();
+
+  // If user is not authenticated, redirect to login page
+  if (!session?.user) {
+    // You can also use Next.js router for client-side navigation
+    // useRouter().push("/login");
+    return (
+      <p className="mt-8 text-center">
+        You are not logged in. Please log in to view this page.
+      </p>
+    );
+  }
+
+  // Extract user information from session data
+  const { user } = session;
+
+  // Render profile information
   return (
-    <div className="container px-4 py-8 mx-auto">
-      <div className="relative h-40 mb-8 md:h-60">
-        <Image
-          src={coverPic.src}
-          alt="Cover"
-          width={500}
-          height={500}
-          className="object-cover w-full h-full rounded-lg shadow"
-        />
-        <div className="absolute bottom-0 left-0 p-4 text-white">
-          <Image
-            src={profilePic.src}
-            alt="Profile"
-            width={500}
-            height={500}
-            className="object-cover w-20 h-20 border-4 border-white rounded-full shadow-lg"
-          />
-          <h1 className="mt-2 text-2xl font-bold">hopes a.</h1>
-        </div>
-      </div>
-
-      <div className="flex flex-col items-center justify-between mb-8 md:flex-row">
-        <div className="mb-2 text-sm text-gray-500 md:mb-0">
-          Member since 7th Oct 2023
-        </div>
-        <div className="text-sm text-gray-500">Last online 9 minutes ago</div>
-      </div>
-
-      <div className="flex items-center mb-6">
-        <div className="mr-4">As a tasker</div>
-        <div>As a poster</div>
-      </div>
-
-      <div className="mb-8">
-        <h2 className="mb-4 text-xl font-bold">Badges</h2>
-        <div className="flex items-center space-x-4">
-          {/* Badge components */}
-        </div>
-      </div>
-
-      <div className="mb-8">
-        <h2 className="mb-4 text-xl font-bold">About</h2>
-        <div className="text-gray-700">
-          Edit your description now. Read More
-        </div>
-      </div>
-
-      <div className="mb-8">
-        <h2 className="mb-4 text-xl font-bold">Portfolio</h2>
-        <div className="text-gray-700">Listings</div>
-      </div>
-
-      <div className="mb-8">
-        <h2 className="mb-4 text-xl font-bold">Skills</h2>
-        <div className="text-gray-700">
-          This user has not added any skills yet.
-        </div>
-      </div>
-
-      <div className="mb-8">
-        <h2 className="mb-4 text-xl font-bold">Reviews</h2>
-        <div className="text-gray-700">
-          As A Tasker
-          <br />
-          As A Poster
-          <br />
-          This user has no reviews as a Tasker yet
-        </div>
+    <div className="container p-4 mx-auto mt-8">
+      <h1 className="mb-4 text-3xl font-semibold text-center">
+        Profile Information
+      </h1>
+      <div className="max-w-md p-6 mx-auto bg-white rounded-lg shadow-md">
+        <p className="mb-4">
+          <strong className="text-blue-600">Name:</strong> {user.name}
+        </p>
+        <p className="mb-4">
+          <strong className="text-blue-600">Email:</strong> {user.email}
+        </p>
+        {/* Add more user information here as needed */}
       </div>
     </div>
   );
