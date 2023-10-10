@@ -28,7 +28,7 @@ const TaskCard = ({
               d="M12 17l-4-4m0 0l4-4m-4 4h14"
             />
           </svg>
-          <span className="text-gray-700">Budget: ${budget}</span>
+          <span className="text-gray-700">Budget: Rs.{budget}</span>
         </div>
         <div className="flex items-center">
           <svg

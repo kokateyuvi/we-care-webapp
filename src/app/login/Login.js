@@ -1,15 +1,24 @@
 "use client";
-import { signIn } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import CustomGoogleButton from "./CustomGoogleButton";
 
 const Login = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const router = useRouter();
+
+  // Redirect authenticated users to the home page
+  React.useEffect(() => {
+    if (session) {
+      router.replace("/");
+    }
+  }, [session, router]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +31,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Sign in using email and password
       const res = await signIn("credentials", {
         email: formData.email,
         password: formData.password,
@@ -29,12 +39,11 @@ const Login = () => {
       });
 
       if (res.error) {
-        toast.error(error);
+        toast.error("Invalid email or password. Please try again.");
         return;
       }
 
-      toast.success("Logged in successfully!");
-      router.replace("/");
+      // If successful, the user will be redirected to the home page due to the useEffect
     } catch (error) {
       console.error("Error logging in:", error);
       toast.error("Error logging in. Please try again later.");
@@ -93,6 +102,9 @@ const Login = () => {
               >
                 Log In
               </button>
+              <div className="flex justify-center text-center">
+                <CustomGoogleButton />
+              </div>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Dont have an account?{" "}
                 <a
