@@ -55,6 +55,11 @@ const authOptions = {
   pages: {
     signIn: "/login",
   },
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);
