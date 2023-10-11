@@ -1,18 +1,24 @@
+// taskRoute.js
 import { Task } from "@/models/taskModel";
-
 import { NextResponse } from "next/server";
 import connect from "../../../../db";
 
 export async function POST(request) {
-  connect();
-  const { title, selectedDate, location, budget } = await request.json();
   try {
-    // Create a new task using the Task model
+    // Retrieve task details from the request body
+    const { title, selectedDate, location, budget, userEmail } =
+      await request.json();
+
+    // Connect to the database
+    connect();
+
+    // Create a new task using the Task model and include userEmail
     const newTask = new Task({
       title,
       selectedDate,
       location,
       budget,
+      userEmail,
     });
 
     // Save the new task to the database
@@ -23,6 +29,7 @@ export async function POST(request) {
       {
         message: "Task added successfully",
         status: true,
+        task: savedTask, // Include the saved task data in the response
       },
       {
         status: 201,

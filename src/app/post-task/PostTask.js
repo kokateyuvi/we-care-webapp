@@ -1,12 +1,14 @@
 "use client";
 
-import { addTask } from "@/services/taskService";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast, { Toaster } from "react-hot-toast";
-
+import { addTask } from "@/services/taskService";
 const TaskDetails = ({ onNext }) => {
+  const { data: session } = useSession();
+  const userEmail = session?.user?.email;
   const [task, setTask] = useState({
     title: "",
     selectedDate: null,
@@ -21,15 +23,14 @@ const TaskDetails = ({ onNext }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(task);
-      // Call the addTask function to save the task
-      const result = await addTask(task);
+      // Include userEmail in the task object
+      const taskWithUserEmail = { ...task, userEmail };
+
+      // Call the addTask function to save the task along with userEmail
+      const result = await addTask(taskWithUserEmail);
 
       // Display success message
       toast.success("Task Added successfully");
-
-      // Log the result to the console (you can remove this line if not needed)
-      console.log(result);
 
       // Clear the form after successful submission
       setTask({
@@ -51,25 +52,27 @@ const TaskDetails = ({ onNext }) => {
 
   return (
     <div className="max-w-md p-6 mx-auto bg-white rounded shadow-md">
-      <h1 className="mb-6 text-2xl font-semibold">Task Details</h1>
+      <h1 className="mb-6 text-2xl font-semibold text-center text-gray-800">
+        Task Details
+      </h1>
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-600">
           What do you need done?
         </label>
         <input
           type="text"
-          className="w-full p-2 mt-1 border rounded"
+          className="w-full p-2 mt-1 border rounded focus:outline-none focus:border-blue-500"
           placeholder="E.g. Help move my sofa"
           value={task.title}
           onChange={(e) => setTask({ ...task, title: e.target.value })}
         />
       </div>
       <div className="mb-4">
-        <label className="block mb-1 text-sm font-medium text-gray-600">
+        <label className="block text-sm font-medium text-gray-600">
           When do you need this done?
         </label>
         <DatePicker
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded focus:outline-none focus:border-blue-500"
           selected={task.selectedDate}
           onChange={handleDateChange}
           placeholderText="Select a date"
@@ -81,7 +84,7 @@ const TaskDetails = ({ onNext }) => {
         </label>
         <input
           type="text"
-          className="w-full p-2 mt-1 border rounded"
+          className="w-full p-2 mt-1 border rounded focus:outline-none focus:border-blue-500"
           placeholder="Enter your location"
           value={task.location}
           onChange={(e) => setTask({ ...task, location: e.target.value })}
@@ -93,14 +96,14 @@ const TaskDetails = ({ onNext }) => {
         </label>
         <input
           type="text"
-          className="w-full p-2 mt-1 border rounded"
+          className="w-full p-2 mt-1 border rounded focus:outline-none focus:border-blue-500"
           placeholder="Enter your budget"
           value={task.budget}
           onChange={(e) => setTask({ ...task, budget: e.target.value })}
         />
       </div>
       <button
-        className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+        className="w-full py-2 text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none"
         onClick={handleSubmit}
       >
         Next

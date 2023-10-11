@@ -20,3 +20,15 @@ export async function getAllTasks() {
     throw error;
   }
 }
+export async function getUserTasks(userEmail) {
+  try {
+    const response = await httpAxios.post("/api/get-user-tasks", {
+      userEmail: userEmail,
+    });
+
+    return response.data.tasks; // Return only tasks from the response
+  } catch (error) {
+    console.error("Error fetching tasks:", error);
+    throw error;
+  }
+}

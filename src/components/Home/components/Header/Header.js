@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-lg">
-      <div className="container flex items-center justify-between px-6 py-2 mx-auto md:px-10 lg:px-16">
+      <div className="container flex items-center justify-between px-6 py-2 mx-auto align-middle md:px-10 lg:px-16">
         <div className="flex items-center space-x-2">
           <Link href="/">
             <p className="text-xl font-semibold text-blue-600 transition duration-300 ease-in-out hover:text-blue-500">
@@ -25,7 +25,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="hidden space-x-3 md:flex">
-          <div className="px-3 py-1 text-white bg-blue-700 rounded-full">
+          <div className="px-4 py-1 text-sm text-white bg-blue-600 rounded-full">
             <Link href="/post-task" onClick={handleMenuItemClick}>
               Post a Task
             </Link>
@@ -36,9 +36,19 @@ const Header = () => {
           <NavItem href="/tasks" onClick={handleMenuItemClick}>
             Browse Tasks
           </NavItem>
-          <NavItem href="/how-it-works" onClick={handleMenuItemClick}>
-            How it Works
-          </NavItem>
+          {session ? (
+            <>
+              <NavItem href="/my-tasks" onClick={handleMenuItemClick}>
+                My Tasks
+              </NavItem>
+            </>
+          ) : (
+            <>
+              <NavItem href="/how-it-works" onClick={handleMenuItemClick}>
+                How it Works
+              </NavItem>
+            </>
+          )}
         </div>
         <div className="hidden space-x-2 md:flex">
           {session ? (
@@ -128,7 +138,7 @@ const NavItem = ({ href, onClick, children }) => (
   <Link href={href}>
     <p
       onClick={onClick}
-      className="text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
+      className="text-sm text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
     >
       {children}
     </p>

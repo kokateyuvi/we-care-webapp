@@ -18,8 +18,12 @@ const taskSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    userEmail: {
+      type: String, // Assuming userEmail is a string, adjust the type accordingly
+      required: true,
+    },
   },
   { timestamps: true }
-); // Added timestamps for createdAt and updatedAt fields
+);
 
 export const Task = mongoose.models.Task || mongoose.model("Task", taskSchema);
