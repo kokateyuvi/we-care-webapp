@@ -4,6 +4,7 @@ import { Roboto } from "next/font/google";
 import Header from "@/components/Home/components/Header/Header";
 import { AuthProvider } from "./Providers";
 import { Toaster } from "react-hot-toast";
+import Footer from "@/components/Home/components/Footer/Footer";
 
 const roboto = Roboto({
   weight: ["100", "300", "500", "400", "700", "900"],
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
             {children}
             <Toaster />
           </div>
+          <Footer />
         </AuthProvider>
       </body>
     </html>

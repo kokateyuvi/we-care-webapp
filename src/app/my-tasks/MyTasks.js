@@ -1,7 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { getUserTasks } from "@/services/taskService";
+import {
+  getUserTasks,
+  deleteTask as deleteTaskService,
+  updateTask as updateTaskService,
+} from "@/services/taskService";
+import { AiOutlineMoneyCollect, AiOutlineCalendar } from "react-icons/ai";
 
 const MyTasks = () => {
   const { data: session, status } = useSession();
@@ -30,25 +35,68 @@ const MyTasks = () => {
     }
   }, [userEmail, status]);
 
+  const handleDeleteTask = async (taskId) => {
+    try {
+      await deleteTaskService(taskId);
+      setUserTasks((prevTasks) =>
+        prevTasks.filter((task) => task._id !== taskId)
+      );
+    } catch (error) {
+      console.error("Error deleting task:", error);
+      setError("Failed to delete the task. Please try again later.");
+    }
+  };
+
+  const handleUpdateTask = async (taskId, updatedTaskData) => {
+    try {
+      const updatedTask = await updateTaskService(taskId, updatedTaskData);
+      setUserTasks((prevTasks) =>
+        prevTasks.map((task) => (task._id === taskId ? updatedTask : task))
+      );
+    } catch (error) {
+      console.error("Error updating task:", error);
+      setError("Failed to update the task. Please try again later.");
+    }
+  };
+
   return (
     <div className="container p-4 mx-auto">
-      <h1 className="mb-4 text-3xl font-bold">My Tasks</h1>
+      <h1 className="mb-8 text-4xl font-bold text-center">My Tasks</h1>
       {loading && <div className="my-8 text-center">Loading tasks...</div>}
-      {error && <div className="my-8 text-red-500">Error: {error}</div>}
-      {!loading && userTasks.length === 0 && (
-        <div className="my-8 text-gray-500">No tasks found.</div>
+      {error && (
+        <div className="my-8 text-center text-red-500">Error: {error}</div>
       )}
-      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {!loading && userTasks.length === 0 && (
+        <div className="my-8 text-center text-gray-500">No tasks found.</div>
+      )}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {userTasks.map((task) => (
-          <li key={task._id} className="p-4 bg-white rounded shadow">
-            <strong>Title:</strong> {task.title}
-            <br />
-            <strong>Budget:</strong> {task.budget}
-            <br />
-            <strong>Selected Date:</strong> {task.selectedDate}
-          </li>
+          <div key={task._id} className="p-6 bg-white rounded shadow-lg">
+            <h2 className="mb-2 text-xl font-semibold">{task.title}</h2>
+            <p className="mb-4 text-gray-600">
+              <AiOutlineMoneyCollect className="inline-block mr-2" />
+              {task.budget}
+              <br />
+              <AiOutlineCalendar className="inline-block mr-2" />
+              {new Date(task.selectedDate).toLocaleDateString()}
+            </p>
+            <div className="flex buttons">
+              <button
+                className="px-4 py-1 mr-2 text-sm text-white transition duration-300 ease-in-out bg-red-500 rounded-full hover:bg-red-600"
+                onClick={() => handleDeleteTask(task._id)}
+              >
+                Delete
+              </button>
+              <button
+                className="px-2 py-1 text-sm text-white transition duration-300 ease-in-out bg-blue-500 rounded-full hover:bg-blue-600"
+                onClick={() => handleUpdateTask(task._id, { completed: true })}
+              >
+                Mark as Completed
+              </button>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
