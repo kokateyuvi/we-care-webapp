@@ -77,7 +77,7 @@ const Header = () => {
             className="text-gray-600 transition duration-300 ease-in-out hover:text-blue-500"
           >
             {menuOpen ? (
-              <FontAwesomeIcon icon={faTimes} className="text-2xl" />
+              ""
             ) : (
               <FontAwesomeIcon icon={faBars} className="text-2xl" />
             )}
@@ -90,13 +90,16 @@ const Header = () => {
           <div className="p-6 bg-white rounded-lg md:p-10">
             <button
               onClick={() => setMenuOpen(false)}
-              className="absolute text-gray-600 transition duration-300 ease-in-out top-4 right-4 hover:text-gray-800"
+              className="absolute text-gray-600 transition duration-300 ease-in-out top-2 right-4 hover:text-gray-800"
             >
               <FontAwesomeIcon icon={faTimes} className="text-2xl" />
             </button>
             <div className="flex flex-col items-center mt-8 space-y-6">
               <NavItem href="/post-task" onClick={handleMenuItemClick}>
-                Post a Task
+                <span className="px-4 py-1 text-sm text-white bg-blue-600 rounded-full">
+                  {" "}
+                  Post a Task
+                </span>
               </NavItem>
               <NavItem href="/categories" onClick={handleMenuItemClick}>
                 Categories
