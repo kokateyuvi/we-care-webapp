@@ -104,9 +104,19 @@ const Header = () => {
               <NavItem href="/tasks" onClick={handleMenuItemClick}>
                 Browse Tasks
               </NavItem>
-              <NavItem href="/how-it-works" onClick={handleMenuItemClick}>
-                How it Works
-              </NavItem>
+              {session ? (
+                <>
+                  <NavItem href="/my-tasks" onClick={handleMenuItemClick}>
+                    My Tasks
+                  </NavItem>
+                </>
+              ) : (
+                <>
+                  <NavItem href="/how-it-works" onClick={handleMenuItemClick}>
+                    How it Works
+                  </NavItem>
+                </>
+              )}
               {session ? (
                 <>
                   <NavItem href="/profile" onClick={handleMenuItemClick}>
