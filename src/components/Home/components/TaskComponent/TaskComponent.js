@@ -2,11 +2,16 @@ import React from "react";
 import Image from "next/image";
 import img from "./elements/img1.jpg";
 import Link from "next/link";
+import { Lobster } from "next/font/google";
 
+const lobster = Lobster({
+  weight: ["400"],
+  subsets: ["latin"],
+});
 const TaskComponent = () => {
   return (
-    <div className="max-w-2xl py-16 mx-auto text-center">
-      <h1 className="mb-6 text-4xl font-bold text-blue-600">
+    <div className={`max-w-2xl py-16 mx-auto text-center ${lobster.className}`}>
+      <h1 className="mb-6 text-3xl font-bold text-blue-600">
         Needy College Students Ready to Help Older People!
       </h1>
       <p className="mb-8 text-lg text-gray-700">

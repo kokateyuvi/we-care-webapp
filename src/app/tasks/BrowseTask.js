@@ -24,16 +24,21 @@ const BrowseTask = () => {
   return (
     <div className="container p-4 mx-auto">
       <h1 className="mb-8 text-4xl font-bold text-center">Available Tasks</h1>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-2">
         {tasks.map((task) => (
           <TaskCard
             key={task._id}
+            task_id={task._id} // Pass task_id as a prop
             title={task.title}
             description={task.description}
             budget={task.budget}
             location={task.location}
             selectedDate={task.selectedDate}
-            onClick={() => setSelectedTask(task)}
+            onClick={(task_id) => {
+              // Handle task details with task_id
+              // Your logic to show further details of the task using task_id
+              setSelectedTask(task); // For demonstration, setting selected task to show details
+            }}
           />
         ))}
       </div>

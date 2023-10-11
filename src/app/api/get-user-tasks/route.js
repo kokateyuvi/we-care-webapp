@@ -4,10 +4,9 @@ import { Task } from "@/models/taskModel";
 
 export async function POST(request) {
   try {
-    connect(); // Establish database connection
-
     // Retrieve user email from the request body
     const { userEmail } = await request.json();
+    connect(); // Establish database connection
 
     // Fetch tasks from the database based on the user's email
     const userTasks = await Task.find({ userEmail });

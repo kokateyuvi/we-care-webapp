@@ -20,6 +20,18 @@ export async function getAllTasks() {
     throw error;
   }
 }
+export async function getOneTask(task_id) {
+  try {
+    const response = await httpAxios.post(`/api/getonetask`, {
+      task_id: task_id,
+    });
+
+    return response.data.task; // Return only the first task from the response
+  } catch (error) {
+    console.error("Error fetching task:", error);
+    throw error; // Rethrow the error so that it can be handled by the caller
+  }
+}
 export async function getUserTasks(userEmail) {
   try {
     const response = await httpAxios.post("/api/get-user-tasks", {

@@ -5,7 +5,12 @@ import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import { Lobster } from "next/font/google";
 
+const lobster = Lobster({
+  weight: ["400"],
+  subsets: ["latin"],
+});
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { data: session } = useSession();
@@ -19,8 +24,8 @@ const Header = () => {
       <div className="container flex items-center justify-between px-6 py-4 mx-auto align-middle md:py-2 md:px-10 lg:px-16">
         <div className="flex items-center space-x-2">
           <Link href="/">
-            <p className="text-xl font-semibold text-blue-600 transition duration-300 ease-in-out hover:text-blue-500">
-              WeCare
+            <p className="text-3xl font-semibold text-blue-600 transition duration-300 ease-in-out hover:text-blue-500 ">
+              <span className={lobster.className}>WeCare</span>
             </p>
           </Link>
         </div>
