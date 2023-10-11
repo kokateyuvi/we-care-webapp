@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-lg">
-      <div className="container flex items-center justify-between px-6 py-2 mx-auto align-middle md:px-10 lg:px-16">
+      <div className="container flex items-center justify-between px-6 py-4 mx-auto align-middle md:py-2 md:px-10 lg:px-16">
         <div className="flex items-center space-x-2">
           <Link href="/">
             <p className="text-xl font-semibold text-blue-600 transition duration-300 ease-in-out hover:text-blue-500">
