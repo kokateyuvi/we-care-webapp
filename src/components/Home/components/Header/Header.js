@@ -15,7 +15,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-lg">
+    <header className="sticky top-0 z-50 bg-white shadow-md">
       <div className="container flex items-center justify-between px-6 py-4 mx-auto align-middle md:py-2 md:px-10 lg:px-16">
         <div className="flex items-center space-x-2">
           <Link href="/">
@@ -94,16 +94,17 @@ const Header = () => {
             >
               <FontAwesomeIcon icon={faTimes} className="text-2xl" />
             </button>
-            <div className="flex flex-col items-center mt-8 space-y-6">
+            <div className="flex flex-col items-center mt-2 space-y-6">
+              <NavItem href="/" onClick={handleMenuItemClick}>
+                Home
+              </NavItem>
               <NavItem href="/post-task" onClick={handleMenuItemClick}>
                 <span className="px-4 py-1 text-sm text-white bg-blue-600 rounded-full">
                   {" "}
                   Post a Task
                 </span>
               </NavItem>
-              <NavItem href="/categories" onClick={handleMenuItemClick}>
-                Categories
-              </NavItem>
+
               <NavItem href="/tasks" onClick={handleMenuItemClick}>
                 Browse Tasks
               </NavItem>
