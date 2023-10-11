@@ -66,7 +66,7 @@ const TaskCard = ({
         </div>
       </div>
       <button
-        className="w-full px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
+        className="w-full px-4 py-1 text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
         onClick={onClick}
       >
         View Details

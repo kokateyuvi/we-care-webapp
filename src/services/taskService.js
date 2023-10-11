@@ -32,3 +32,28 @@ export async function getUserTasks(userEmail) {
     throw error;
   }
 }
+
+export async function updateTask(taskId, updatedTaskData) {
+  try {
+    const response = await httpAxios.put(
+      `/api/task/${taskId}`,
+      updatedTaskData
+    );
+    return response.data;
+  } catch (error) {
+    // Handle error
+    console.error("Error updating task:", error);
+    throw error;
+  }
+}
+
+export async function deleteTask(taskId) {
+  try {
+    const response = await httpAxios.delete(`/api/task/${taskId}`);
+    return response.data;
+  } catch (error) {
+    // Handle error
+    console.error("Error deleting task:", error);
+    throw error;
+  }
+}
