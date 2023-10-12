@@ -22,6 +22,11 @@ const taskSchema = new mongoose.Schema(
       type: String, // Assuming userEmail is a string, adjust the type accordingly
       required: true,
     },
+    status: {
+      type: String,
+      enum: ["OPEN", "ASSIGNED", "COMPLETED"], // Allowed status values
+      default: "OPEN", // Default status value if not provided
+    },
   },
   { timestamps: true }
 );

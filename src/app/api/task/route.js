@@ -5,20 +5,21 @@ import connect from "../../../../db";
 
 export async function POST(request) {
   try {
-    // Retrieve task details from the request body
-    const { title, selectedDate, location, budget, userEmail } =
+    // Retrieve task details including status from the request body
+    const { title, selectedDate, location, budget, userEmail, status } =
       await request.json();
 
     // Connect to the database
     connect();
 
-    // Create a new task using the Task model and include userEmail
+    // Create a new task using the Task model and include userEmail and status
     const newTask = new Task({
       title,
       selectedDate,
       location,
       budget,
       userEmail,
+      status, // Include the status field in the task object
     });
 
     // Save the new task to the database

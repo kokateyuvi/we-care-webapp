@@ -9,6 +9,7 @@ import { addTask } from "@/services/taskService";
 const TaskDetails = ({ onNext }) => {
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
+  const status = "OPEN";
   const [task, setTask] = useState({
     title: "",
     selectedDate: null,
@@ -24,7 +25,7 @@ const TaskDetails = ({ onNext }) => {
     e.preventDefault();
     try {
       // Include userEmail in the task object
-      const taskWithUserEmail = { ...task, userEmail };
+      const taskWithUserEmail = { ...task, userEmail, status };
 
       // Call the addTask function to save the task along with userEmail
       const result = await addTask(taskWithUserEmail);
