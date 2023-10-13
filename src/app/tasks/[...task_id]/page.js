@@ -81,7 +81,7 @@ const OneTask = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-center p-6 bg-gray-200 rounded-lg md:w-1/3 lg:w-1/4 xl:w-2/4">
+          <div className="flex flex-col items-center justify-center p-6 bg-gray-200 rounded-lg md:w-1/3 lg:w-2/4 xl:w-2/4">
             <div className="mb-4 text-sm font-semibold lg:text-base">
               TASK BUDGET
             </div>
