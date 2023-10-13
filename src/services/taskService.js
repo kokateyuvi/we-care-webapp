@@ -45,23 +45,36 @@ export async function getUserTasks(userEmail) {
   }
 }
 
-export async function updateTask(taskId, updatedTaskData) {
+export async function updateTask(taskId) {
   try {
-    const response = await httpAxios.put(
-      `/api/task/${taskId}`,
-      updatedTaskData
-    );
-    return response.data;
+    // Ensure status is set to "COMPLETED" before sending the update
+
+    // Send the updated data to the server using Axios
+    const response = await httpAxios.put(`/api/updateTaskStatus`, {
+      taskId: taskId,
+    });
+
+    // Check if the request was successful
+    if (response.status === 200) {
+      // Return the updated task data from the server response
+      return response.data;
+    } else {
+      // Handle unexpected status codes from the server
+      console.error("Error updating task. Unexpected status:", response.status);
+      throw new Error("Failed to update task. Unexpected status code.");
+    }
   } catch (error) {
-    // Handle error
+    // Handle Axios errors and other exceptions
     console.error("Error updating task:", error);
-    throw error;
+    throw error; // Rethrow the error for the calling code to handle
   }
 }
 
 export async function deleteTask(taskId) {
   try {
-    const response = await httpAxios.delete(`/api/task/${taskId}`);
+    const response = await httpAxios.delete(`/api/deleteTask`, {
+      taskId: taskId,
+    });
     return response.data;
   } catch (error) {
     // Handle error

@@ -21,6 +21,13 @@ const BrowseTask = () => {
     fetchData(); // Fetch tasks when the component mounts
   }, []);
 
+  const handleTaskClick = (taskId) => {
+    // Fetch detailed information for the selected task using taskId
+    // Update the selected task state with the fetched data
+    const selectedTaskData = tasks.find((task) => task._id === taskId);
+    setSelectedTask(selectedTaskData);
+  };
+
   return (
     <div className="container p-4 mx-auto">
       <h1 className="mb-8 text-4xl font-bold text-center">Available Tasks</h1>
@@ -28,17 +35,14 @@ const BrowseTask = () => {
         {tasks.map((task) => (
           <TaskCard
             key={task._id}
-            task_id={task._id} // Pass task_id as a prop
+            task_id={task._id}
             title={task.title}
             description={task.description}
             budget={task.budget}
             location={task.location}
             selectedDate={task.selectedDate}
-            onClick={(task_id) => {
-              // Handle task details with task_id
-              // Your logic to show further details of the task using task_id
-              setSelectedTask(task); // For demonstration, setting selected task to show details
-            }}
+            status={task.status} // Pass task status as a prop
+            onClick={() => handleTaskClick(task._id)}
           />
         ))}
       </div>
