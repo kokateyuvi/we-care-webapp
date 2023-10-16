@@ -5,6 +5,7 @@ import {
   getUserTasks,
   deleteTask as deleteTaskService,
   updateTask as updateTaskService,
+  updateTask,
 } from "@/services/taskService";
 import { AiOutlineMoneyCollect, AiOutlineCalendar } from "react-icons/ai";
 import toast, { Toast } from "react-hot-toast";
@@ -50,28 +51,20 @@ const MyTasks = () => {
 
   const handleUpdateTaskStatus = async (taskId) => {
     try {
-      // Update the task status on the server
-      const updatedTask = await updateTaskService(taskId);
-
-      // Fetch the latest task data for the user
-      const tasks = await getUserTasks(userEmail);
+      // Send the updated data to the server using the service function
+      const response = await updateTaskService(taskId, "COMPLETED");
+      const updatedTasks = await getUserTasks(userEmail);
 
       // Update the local state with the latest task data
-      setUserTasks(tasks);
-
+      setUserTasks(updatedTasks);
+      toast.success(response.message);
       // Show a success toast message
-      toast.success("Task updated successfully!");
     } catch (error) {
       console.error("Error updating task:", error);
 
-      // Show an error toast message
-      if (error.response && error.response.status === 404) {
-        setError("Task not found. Please refresh the page.");
-        toast.error("Task not found. Please refresh the page.");
-      } else {
-        setError("Failed to update the task. Please try again later.");
-        toast.error("Failed to update the task. Please try again later.");
-      }
+      // Show an error toast message for network or unexpected errors
+      setError("Failed to update the task. Please try again later.");
+      toast.error("Failed to update the task. Please try again later.");
     }
   };
 

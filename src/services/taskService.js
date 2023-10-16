@@ -45,13 +45,14 @@ export async function getUserTasks(userEmail) {
   }
 }
 
-export async function updateTask(taskId) {
+export async function updateTask(taskId, taskStatus) {
   try {
     // Ensure status is set to "COMPLETED" before sending the update
 
     // Send the updated data to the server using Axios
     const response = await httpAxios.put(`/api/updateTaskStatus`, {
       taskId: taskId,
+      taskStatus: taskStatus,
     });
 
     // Check if the request was successful
