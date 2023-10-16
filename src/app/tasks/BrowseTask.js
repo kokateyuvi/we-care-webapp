@@ -7,18 +7,23 @@ const BrowseTask = () => {
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const tasksData = await getAllTasks();
-        setTasks(tasksData);
-      } catch (error) {
-        // Handle error (e.g., show an error message)
-        console.error("Error fetching tasks:", error);
-      }
-    };
+  // Memoize the getAllTasks function to avoid unnecessary re-renders
+  const memoizedGetAllTasks = React.useMemo(() => getAllTasks, []);
 
-    fetchData(); // Fetch tasks when the component mounts
+  // Use an async function to fetch the tasks
+  async function fetchData() {
+    try {
+      const tasksData = await memoizedGetAllTasks();
+      setTasks(tasksData);
+    } catch (error) {
+      // Handle error (e.g., show an error message)
+      console.error("Error fetching tasks:", error);
+    }
+  }
+
+  // Use a useEffect hook to fetch the tasks when the component mounts
+  useEffect(() => {
+    fetchData();
   }, []);
 
   const handleTaskClick = (taskId) => {
