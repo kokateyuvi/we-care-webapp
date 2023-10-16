@@ -21,6 +21,7 @@ const taskSchema = new mongoose.Schema(
     userEmail: {
       type: String, // Assuming userEmail is a string, adjust the type accordingly
       required: true,
+      default: "user@gmail.com",
     },
     status: {
       type: String,

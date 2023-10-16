@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
           <Header />
           <div className="min-h-screen py-5">
             {children}
-            <Toaster />
+            <Toaster position="top-right" />
           </div>
           <Footer />
         </AuthProvider>

@@ -57,7 +57,7 @@ const MyTasks = () => {
 
       // Update the local state with the latest task data
       setUserTasks(updatedTasks);
-      toast.success(response.message);
+      toast.success("Task marked as Completed Successfuly");
       // Show a success toast message
     } catch (error) {
       console.error("Error updating task:", error);
