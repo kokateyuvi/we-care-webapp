@@ -2,7 +2,7 @@ import { Task } from "@/models/taskModel";
 import { NextResponse } from "next/server";
 import connect from "../../../../db";
 
-export async function GET(request) {
+export async function POST(request) {
   try {
     connect();
 

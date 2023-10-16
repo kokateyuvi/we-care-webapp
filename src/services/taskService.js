@@ -13,7 +13,7 @@ export async function addTask(task) {
 
 export async function getAllTasks() {
   try {
-    const response = await httpAxios.get("/api/gettasks");
+    const response = await httpAxios.post("/api/gettasks");
     return response.data.tasks; // Return only tasks from the response
   } catch (error) {
     console.error("Error fetching tasks:", error);
