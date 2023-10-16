@@ -79,7 +79,7 @@ const OneTask = () => {
             <InfoSection
               icon={<FaUser size={20} />}
               title="POSTED BY"
-              value={taskData.userEmail}
+              value={taskData.userName}
             />
             <InfoSection
               icon={<FaMapMarker size={20} />}

@@ -10,6 +10,8 @@ import { addTask } from "@/services/taskService";
 const TaskDetails = ({ onNext }) => {
   const { data: session } = useSession();
   const userEmail = session?.user?.email;
+  const userName = session?.user?.name;
+
   const status = "OPEN";
 
   const [task, setTask] = useState({
@@ -65,10 +67,10 @@ const TaskDetails = ({ onNext }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const taskWithUserEmail = { ...task, userEmail, status };
+      const taskWithUserEmail = { ...task, userEmail, userName, status };
       const result = await addTask(taskWithUserEmail);
 
-      toast.success("Task Added successfully");
+      toast.success(result.message);
       setTask({
         title: "",
         selectedDate: null,

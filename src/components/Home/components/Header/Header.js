@@ -18,7 +18,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 bg-white shadow-md">
       <div className="container flex items-center justify-between px-6 py-4 mx-auto md:py-2 md:px-8 lg:px-8">
         <Link href="/">
-          <p className="text-3xl font-semibold text-blue-600 cursor-pointer hover:text-blue-500">
+          <p className="text-3xl font-bold text-blue-600 cursor-pointer hover:text-blue-500">
             WeCare
           </p>
         </Link>
