@@ -48,15 +48,23 @@ const MyTasks = () => {
     }
   };
 
-  const handleUpdateTask = async (taskId) => {
+  const handleUpdateTaskStatus = async (taskId) => {
     try {
+      // Update the task status on the server
       const updatedTask = await updateTaskService(taskId);
-      setUserTasks((prevTasks) =>
-        prevTasks.map((task) => (task._id === taskId ? updatedTask : task))
-      );
+
+      // Fetch the latest task data for the user
+      const tasks = await getUserTasks(userEmail);
+
+      // Update the local state with the latest task data
+      setUserTasks(tasks);
+
+      // Show a success toast message
       toast.success("Task updated successfully!");
     } catch (error) {
       console.error("Error updating task:", error);
+
+      // Show an error toast message
       if (error.response && error.response.status === 404) {
         setError("Task not found. Please refresh the page.");
         toast.error("Task not found. Please refresh the page.");
@@ -124,7 +132,7 @@ const MyTasks = () => {
               {!task.completed && (
                 <button
                   className="px-2 py-1 text-sm text-white transition duration-300 ease-in-out bg-blue-600 rounded-full hover:bg-green-600"
-                  onClick={() => handleUpdateTask(task._id)}
+                  onClick={() => handleUpdateTaskStatus(task._id)}
                 >
                   Mark as Completed
                 </button>
