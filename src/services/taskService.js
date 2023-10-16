@@ -70,10 +70,12 @@ export async function updateTask(taskId) {
   }
 }
 
+// Client-side code
 export async function deleteTask(taskId) {
   try {
+    // Send the taskId as data in the request body
     const response = await httpAxios.delete(`/api/deleteTask`, {
-      taskId: taskId,
+      data: { taskId: taskId }, // Send the taskId in the request body
     });
     return response.data;
   } catch (error) {

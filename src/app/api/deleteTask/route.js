@@ -23,7 +23,7 @@ export async function DELETE(request) {
     }
 
     // Delete the task from the database
-    await task.delete();
+    await task.deleteOne();
 
     return NextResponse.json({
       message: "Task deleted successfully",

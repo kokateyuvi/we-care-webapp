@@ -7,7 +7,7 @@ import {
   updateTask as updateTaskService,
 } from "@/services/taskService";
 import { AiOutlineMoneyCollect, AiOutlineCalendar } from "react-icons/ai";
-
+import toast, { Toast } from "react-hot-toast";
 const MyTasks = () => {
   const { data: session, status } = useSession();
   const [userTasks, setUserTasks] = useState([]);
@@ -36,17 +36,15 @@ const MyTasks = () => {
   }, [userEmail, status]);
   const handleDeleteTask = async (taskId) => {
     try {
-      // Call the deleteTaskService to delete the task on the server-side
-      await deleteTaskService(taskId);
-
-      // If deletion is successful, update the local state to remove the deleted task
+      const response = await deleteTaskService(taskId);
       setUserTasks((prevTasks) =>
         prevTasks.filter((task) => task._id !== taskId)
       );
+      toast.success(response.message);
     } catch (error) {
-      // If there's an error during deletion, log the error and set an error message
       console.error("Error deleting task:", error);
       setError("Failed to delete the task. Please try again later.");
+      toast.error("Failed to delete the task. Please try again later.");
     }
   };
 
@@ -56,18 +54,21 @@ const MyTasks = () => {
       setUserTasks((prevTasks) =>
         prevTasks.map((task) => (task._id === taskId ? updatedTask : task))
       );
+      toast.success("Task updated successfully!");
     } catch (error) {
       console.error("Error updating task:", error);
       if (error.response && error.response.status === 404) {
         setError("Task not found. Please refresh the page.");
+        toast.error("Task not found. Please refresh the page.");
       } else {
         setError("Failed to update the task. Please try again later.");
+        toast.error("Failed to update the task. Please try again later.");
       }
     }
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container p-4 mx-auto">
       <h1 className="mb-8 text-4xl font-bold text-center text-blue-500">
         My Tasks
       </h1>
@@ -84,7 +85,7 @@ const MyTasks = () => {
         {userTasks.map((task) => (
           <div
             key={task._id}
-            className="p-6 bg-white rounded shadow-lg transition duration-300 ease-in-out transform hover:scale-105 relative"
+            className="relative p-6 transition duration-300 ease-in-out transform bg-white rounded shadow-lg hover:scale-105"
           >
             <h2 className="mb-2 text-xl font-semibold text-blue-500">
               {task.title}
