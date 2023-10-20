@@ -14,7 +14,7 @@ export async function loginUser(formData) {
 }
 export async function getUser(email) {
   const response = await httpAxios
-    .get("api/getuser", { email })
+    .post("api/getuser", { email })
     .then((response) => response.data); // Replace with your API endpoint for retrieving user data
   return response;
 }

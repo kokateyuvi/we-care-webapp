@@ -1,5 +1,5 @@
 import "./globals.css";
-
+import GlobalState from "@/context";
 import { Roboto } from "next/font/google";
 import Header from "@/components/Home/components/Header/Header";
 import { AuthProvider } from "./Providers";
@@ -22,12 +22,14 @@ export default function RootLayout({ children }) {
       <body className={roboto.className}>
         {" "}
         <AuthProvider>
-          <Header />
-          <div className="min-h-screen py-5">
-            {children}
-            <Toaster position="top-right" />
-          </div>
-          <Footer />
+          <GlobalState>
+            <Header />
+            <div className="min-h-screen py-5">
+              {children}
+              <Toaster position="top-right" />
+            </div>
+            <Footer />
+          </GlobalState>
         </AuthProvider>
       </body>
     </html>

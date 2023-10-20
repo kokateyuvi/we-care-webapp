@@ -1,14 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import { GlobalContext } from "@/context";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { data: session } = useSession();
+
+  const { userData } = useContext(GlobalContext);
+  let userRole;
+
+  if (userData) {
+    userRole = userData.role;
+  }
 
   const handleMenuItemClick = () => {
     setMenuOpen(false);
@@ -24,15 +32,19 @@ const Header = () => {
         </Link>
 
         <div className="hidden space-x-3 md:flex">
-          <NavItem href="/post-task" onClick={handleMenuItemClick}>
-            Post a task
-          </NavItem>
+          {userRole === "Task poster" && (
+            <NavItem href="/post-task" onClick={handleMenuItemClick}>
+              Post a task
+            </NavItem>
+          )}
           <NavItem href="/categories" onClick={handleMenuItemClick}>
             Categories
           </NavItem>
-          <NavItem href="/tasks" onClick={handleMenuItemClick}>
-            Browse tasks
-          </NavItem>
+          {userRole === "Tasker" && (
+            <NavItem href="/tasks" onClick={handleMenuItemClick}>
+              Browse Tasks
+            </NavItem>
+          )}
           {session ? (
             <NavItem href="/my-tasks" onClick={handleMenuItemClick}>
               My tasks
