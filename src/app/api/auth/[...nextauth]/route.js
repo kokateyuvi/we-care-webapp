@@ -37,6 +37,10 @@ const authOptions = {
           if (!passwordMatch) {
             throw new Error("Invalid email or password");
           }
+          const userRole = user.role;
+          console.log(userRole);
+
+          // Include the user's role in the session state
 
           // If user is found and password matches, return the user object
           return user;
@@ -53,7 +57,7 @@ const authOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/login",
+    signIn: "/",
   },
   callbacks: {
     async redirect({ url, baseUrl }) {

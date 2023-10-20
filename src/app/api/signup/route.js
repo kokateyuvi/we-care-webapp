@@ -2,10 +2,11 @@ import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 import connect from "../../../../db";
 import bcrypt from "bcryptjs";
+
 export async function POST(request) {
   try {
     connect();
-    const { name, email, password } = await request.json();
+    const { name, email, password, role } = await request.json();
     const hashedPassword = await bcrypt.hash(password, 10);
     // Check if the email is already registered
     const existingUser = await User.findOne({ email });
@@ -21,11 +22,12 @@ export async function POST(request) {
       );
     }
 
-    // Create a new user instance
+    // Create a new user instance with the role field
     const newUser = new User({
       name,
       email,
       password: hashedPassword,
+      role, // Include the role field in the user instance
     });
 
     // Save the new user to the database

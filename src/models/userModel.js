@@ -15,6 +15,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    role: {
+      type: String,
+      enum: ["Tasker", "Task poster"], // Available roles: Tasker or Poster
+      required: true,
+    },
     // Additional fields can be added here based on your requirements
   },
   { timestamps: true }

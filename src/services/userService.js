@@ -12,3 +12,9 @@ export async function loginUser(formData) {
     .then((response) => response.data);
   return result;
 }
+export async function getUser(email) {
+  const response = await httpAxios
+    .get("api/getuser", { email })
+    .then((response) => response.data); // Replace with your API endpoint for retrieving user data
+  return response;
+}
