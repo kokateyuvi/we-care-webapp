@@ -105,16 +105,19 @@ const Header = () => {
               <NavItem href="/" onClick={handleMenuItemClick}>
                 Home
               </NavItem>
-              <NavItem href="/post-task" onClick={handleMenuItemClick}>
-                <span className="px-4 py-2 text-sm text-white bg-blue-600 rounded-full hover:bg-blue-500">
-                  {" "}
-                  Post a task
-                </span>
-              </NavItem>
-
-              <NavItem href="/tasks" onClick={handleMenuItemClick}>
-                Browse tasks
-              </NavItem>
+              {userRole == "Task poster" && (
+                <NavItem href="/post-task" onClick={handleMenuItemClick}>
+                  <span className="px-4 py-2 text-sm text-white bg-blue-600 rounded-full hover:bg-blue-500">
+                    {" "}
+                    Post a task
+                  </span>
+                </NavItem>
+              )}
+              {userRole === "Tasker" && (
+                <NavItem href="/tasks" onClick={handleMenuItemClick}>
+                  Browse Tasks
+                </NavItem>
+              )}
               {session ? (
                 <NavItem href="/my-tasks" onClick={handleMenuItemClick}>
                   My tasks
