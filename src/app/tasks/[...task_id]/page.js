@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { FaUser, FaMapMarker, FaCalendar } from "react-icons/fa";
 import toast from "react-hot-toast";
+
 const InfoSection = ({ icon, title, value }) => (
   <div className="flex items-center mb-4 text-gray-600">
     <div className="mr-3">{icon}</div>
@@ -44,10 +45,13 @@ const OneTask = () => {
         // Show a toast message indicating that the task is completed
         toast.error("Task is already completed. You cannot make an offer.");
       } else {
-        const response = await updateTask(task_id, "ASSIGNED");
-        const updatedTask = await getOneTask(task_id);
-        setTaskData(updatedTask);
-        toast.success(response.message);
+        const confirmed = window.confirm("Are you sure you want to make an offer?");
+        if (confirmed) {
+          const response = await updateTask(task_id, "ASSIGNED");
+          const updatedTask = await getOneTask(task_id);
+          setTaskData(updatedTask);
+          toast.success(response.message);
+        }
       }
     } catch (error) {
       console.error("Error making an offer:", error);
@@ -105,18 +109,18 @@ const OneTask = () => {
               Rs. {taskData.budget}
             </div>
             <button
-              className={`px-4 py-2 text-sm font-bold text-white bg-blue-500 rounded-full md:text-lg ${
-                taskData.status === "COMPLETED"
-                  ? "cursor-not-allowed"
-                  : "hover:bg-blue-700"
-              }`}
-              onClick={handleMakeOffer}
-              disabled={taskData.status === "COMPLETED"} // Disable the button if the task is completed
-            >
-              {taskData.status === "COMPLETED"
-                ? "Task is Completed"
-                : "Make an Offer"}
-            </button>
+  className={`px-4 py-2 text-sm font-bold text-white bg-blue-500 rounded-full md:text-lg ${
+    taskData.status === "COMPLETED" || taskData.status === "ASSIGNED"
+      ? "cursor-not-allowed"
+      : "hover:bg-blue-700"
+  }`}
+  onClick={handleMakeOffer}
+  disabled={taskData.status === "COMPLETED" || taskData.status === "ASSIGNED"}
+>
+  {taskData.status === "COMPLETED" || taskData.status === "ASSIGNED"
+    ? "Task is Completed"
+    : "Accept"}
+</button>
           </div>
         </div>
       )}

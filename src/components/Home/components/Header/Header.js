@@ -6,6 +6,11 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { GlobalContext } from "@/context";
+import { Manrope } from "next/font/google";
+const manrope = Manrope({
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+});
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,7 +29,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
-      <div className="container flex items-center justify-between px-6 py-4 mx-auto md:py-2 md:px-8 lg:px-8">
+      <div className="container flex items-center justify-between px-6 py-4 mx-auto md:py-2 md:px-8 lg:px-40 lg:py-4">
         <Link href="/">
           <p className="text-3xl font-bold text-blue-600 cursor-pointer hover:text-blue-500">
             WeCare
@@ -32,19 +37,19 @@ const Header = () => {
         </Link>
 
         <div className="hidden space-x-3 md:flex">
-          {userRole === "Task poster" && (
+         
             <NavItem href="/post-task" onClick={handleMenuItemClick}>
               Post a task
             </NavItem>
-          )}
+      
           <NavItem href="/categories" onClick={handleMenuItemClick}>
             Categories
           </NavItem>
-          {userRole === "Tasker" && (
+      
             <NavItem href="/tasks" onClick={handleMenuItemClick}>
               Browse Tasks
             </NavItem>
-          )}
+     
           {session ? (
             <NavItem href="/my-tasks" onClick={handleMenuItemClick}>
               My tasks
@@ -59,7 +64,7 @@ const Header = () => {
         <div className="hidden space-x-2 md:flex">
           {session ? (
             <>
-              <NavItem href="/profile" onClick={handleMenuItemClick}>
+              <NavItem href="/profile/MyDashboard" onClick={handleMenuItemClick}>
                 Profile
               </NavItem>
               <NavItem href="/api/auth/signout" onClick={signOut}>
@@ -105,19 +110,19 @@ const Header = () => {
               <NavItem href="/" onClick={handleMenuItemClick}>
                 Home
               </NavItem>
-              {userRole == "Task poster" && (
+        
                 <NavItem href="/post-task" onClick={handleMenuItemClick}>
                   <span className="px-4 py-2 text-sm text-white bg-blue-600 rounded-full hover:bg-blue-500">
                     {" "}
                     Post a task
                   </span>
                 </NavItem>
-              )}
-              {userRole === "Tasker" && (
+   
+       
                 <NavItem href="/tasks" onClick={handleMenuItemClick}>
                   Browse Tasks
                 </NavItem>
-              )}
+        
               {session ? (
                 <NavItem href="/my-tasks" onClick={handleMenuItemClick}>
                   My tasks
@@ -129,8 +134,15 @@ const Header = () => {
               )}
               {session ? (
                 <>
-                  <NavItem href="/profile" onClick={handleMenuItemClick}>
+                  <NavItem href="/profile/MyDashboard" onClick={handleMenuItemClick}>
                     Profile
+                  </NavItem>
+             
+                  <NavItem href="/profile/payment-methods" onClick={handleMenuItemClick}>
+                      Payment methods
+                  </NavItem>
+                  <NavItem href="/profile/payments-history" onClick={handleMenuItemClick}>
+                    Paments history
                   </NavItem>
                   <NavItem href="/api/auth/signout" onClick={signOut}>
                     Logout
@@ -155,10 +167,10 @@ const Header = () => {
 };
 
 const NavItem = ({ href, onClick, children }) => (
-  <Link href={href}>
+  <Link href={href} className={manrope.className}>
     <p
       onClick={onClick}
-      className="text-sm text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500"
+      className="text-base font-medium text-gray-600 transition duration-300 ease-in-out cursor-pointer hover:text-blue-500 lg:text-lg"
     >
       {children}
     </p>

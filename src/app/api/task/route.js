@@ -6,7 +6,7 @@ import connect from "../../../../db";
 export async function POST(request) {
   try {
     // Retrieve task details including status from the request body
-    const { title, selectedDate, location, budget, userEmail, status } =
+    const { title, selectedDate, location, budget, userEmail,userName, status } =
       await request.json();
 
     // Connect to the database
@@ -19,6 +19,7 @@ export async function POST(request) {
       location,
       budget,
       userEmail,
+      userName,
       status, // Include the status field in the task object
     });
 

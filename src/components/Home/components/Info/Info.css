@@ -1,0 +1,139 @@
+/*屏幕大于或等于768px*/
+@media screen and (min-width: 768px) {
+    .clearfix:after{/*伪元素是行内元素 正常浏览器清除浮动方法*/
+        content: "";
+        display: block;
+        height: 0;
+        clear:both;
+        visibility: hidden;
+    }
+   
+    .infobox {
+        /* height:300px; */
+        background:#fff;
+        margin-left:73px;
+        margin-right:73px;
+    }
+    .infobox .left-info{
+        float:left;
+        width:50%;
+        margin-top:100px;
+    }
+    .infobox .left-info h1{
+        width:100%;
+        line-height:80px;
+        font-weight:400;
+        font-size:64px;
+        color:#000;
+        margin-bottom:25px;
+    }
+    .infobox .left-info p{
+        line-height:30px;
+        color:#000;
+        font-size:18px;
+    }
+    .infobox .left-info .list{
+        margin-top:30px;
+    }
+    .infobox .left-info .list .item{
+        height:30px;
+        line-height:30px;
+        margin-bottom:10px;
+    }
+    .infobox .left-info .list .item .circle{
+        float:left;
+        width:30px;
+        height:30px;
+        border-radius:50%;
+        background:#F3D250;
+        position:relative;
+    }
+    .infobox .left-info .list .item .circle img{
+        position : absolute;
+        left:6px;
+        top:7px;
+    }
+    .infobox .left-info .list .item span{
+        float:left;
+        height:30px;
+        line-height:30px;
+        font-size:18px;
+        font-weight: 700;
+        margin-left:15px;
+    }
+    .infobox .right-info{
+        float:left;
+        width:50%;
+    }
+    .infobox .right-info img{
+        width:100%;
+        height:auto;
+    }
+}
+
+
+/*屏幕小于或等于767*/
+@media screen and (max-width: 767px) {
+    .infobox {
+        /* height:500px; */
+        background:#fff;
+        flex-direction:column;
+        padding-left:30px;
+        padding-right:30px;
+    }
+    .infobox .left-info{
+        width:100%;
+        margin-top:40px;
+    }
+    .infobox .left-info h1{
+        width:100%;
+        text-align:center;
+        line-height:35px;
+        font-weight:400;
+        font-size:30px;
+        color:#000;
+        margin-bottom:25px;
+    }
+    .infobox .left-info p{
+        text-align:center;
+        line-height:18px;
+        color:#000;
+        font-size:12px;
+    }
+    .infobox .left-info .list{
+        margin-top:30px;
+    }
+    .infobox .left-info .list .item{
+        margin-bottom:20px;
+    }
+    .infobox .left-info .list .item .circle{
+        width:30px;
+        height:30px;
+        border-radius:50%;
+        background:#F3D250;
+        margin:0 auto;
+        position:relative;
+    }
+    .infobox .left-info .list .item .circle img{
+        position : absolute;
+        left:6px;
+        top:7px;
+    }
+    .infobox .left-info .list .item span{
+        display: block;
+        text-align:center;
+        height:25px;
+        line-height:25px;
+        font-size:13px;
+        font-weight: 700;
+        margin-left:15px;
+    }
+    .infobox .right-info{
+        width:100%;
+    }
+    .infobox .right-info img{
+        width:100%;
+        height:auto;
+    }
+
+}

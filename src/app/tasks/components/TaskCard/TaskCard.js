@@ -62,7 +62,7 @@ const TaskCard = ({
           {status.charAt(0).toUpperCase() + status.slice(1)}
         </div>
       </div>
-      <div className="absolute flex flex-col p-2 font-extrabold text-gray-800 rounded-full top-2 right-2">
+      <div className="absolute flex flex-col p-2 font-extrabold text-gray-800 rounded-full top-2 right-2 mb-4">
         {formattedBudget}
         <span className="w-20 h-1 bg-blue-600 rounded-full"></span>
       </div>

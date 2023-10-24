@@ -1,40 +1,62 @@
-// Import necessary libraries and components
 "use client";
 import React from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
 
 const Profile = () => {
-  // Get user session data
   const { data: session } = useSession();
 
-  // If user is not authenticated, redirect to login page
   if (!session?.user) {
-    // You can also use Next.js router for client-side navigation
-    // useRouter().push("/login");
     return (
-      <p className="mt-8 text-center">
-        You are not logged in. Please log in to view this page.
-      </p>
+      <div className="container mt-8">
+        <p className="text-center text-red-600 text-xl font-semibold">
+          You are not logged in. Please log in to view this page.
+        </p>
+      </div>
     );
   }
 
-  // Extract user information from session data
   const { user } = session;
 
-  // Render profile information
+  const handleLogOut = () => {
+    signOut();
+  };
+
   return (
-    <div className="container p-4 mx-auto mt-8">
-      <h1 className="mb-4 text-3xl font-semibold text-center">
-        Profile Information
-      </h1>
-      <div className="max-w-md p-6 mx-auto bg-white rounded-lg shadow-md">
-        <p className="mb-4">
-          <strong className="text-blue-600">Name:</strong> {user.name}
-        </p>
-        <p className="mb-4">
-          <strong className="text-blue-600">Email:</strong> {user.email}
-        </p>
-        {/* Add more user information here as needed */}
+    <div className="container mx-auto p-8 block ">
+      <div className="max-w-md mx-auto bg-gray-100 rounded-lg shadow-md py-8">
+        <div className="text-center mb-4">
+          <Image
+            src={user.picture}
+            alt={user.name}
+            width={200}
+            height={200}
+            className="w-20 h-20 rounded-full mx-auto border-4 border-blue-500"
+          />
+          <p className="mt-2 text-xl font-semibold text-gray-800">{user.name}</p>
+        </div>
+        <div className="text-center my-4">
+          <Link href="/profile/MyDashboard">
+            <p className="my-2 text-base text-gray-800 hover:underline">My Tasker Dashboard</p>
+          </Link>
+          <Link href="/profile/list-services">
+            <p className="my-2 text-base text-gray-800 hover:underline">List my services</p>
+          </Link>
+          <Link href="/profile/payments-history">
+            <p className="my-2 text-base text-gray-800 hover:underline">Payments history</p>
+          </Link>
+          <Link href="/profile/payment-methods">
+            <p className="my-2 text-base text-gray-800 hover:underline">Payment methods</p>
+          </Link>
+          <Link href="/profile/notifications">
+            <p className="my-2 text-base text-gray-800 hover:underline">Notifications</p>
+          </Link>
+          <Link href="/profile/settings">
+            <p className="my-2 text-base text-gray-800 hover:underline">Settings</p>
+          </Link>
+        </div>
+    
       </div>
     </div>
   );
